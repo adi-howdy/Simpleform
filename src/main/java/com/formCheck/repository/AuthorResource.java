@@ -37,6 +37,26 @@ public class AuthorResource {
 		this.authorService = authorService;
 	}
 	
+	/*
+	@RequestMapping(value="/about", method = RequestMethod.GET)
+	public String showAbout(ModelMap model, Author author){
+		System.out.print("FUCK IT" + "/n");
+		//Author author1 = new Author();
+		//model.addAttribute("author", author1);
+		return "about";
+	}
+	*/
+	
+	@RequestMapping("/about")
+	public String About(){
+		return "about";
+	}
+	
+	@RequestMapping("/index")
+	public String Index(){
+		return "index";
+	}
+	/*
 	@RequestMapping(value="/authors", method = RequestMethod.GET)
 	public String showForm(ModelMap model, Author author){
 		System.out.print("FUCK IT" + "/n");
@@ -44,15 +64,23 @@ public class AuthorResource {
 		model.addAttribute("author", author1);
 		return "authors";
 	}
+	*/
 	
+	@RequestMapping(value="/register", method = RequestMethod.GET)
+	public String showForm(ModelMap model, Author author){
+		System.out.print("FUCK IT" + "/n");
+		Author author1 = new Author();
+		model.addAttribute("author", author1);
+		return "register";
+	}
 	@RequestMapping(value="/", method = RequestMethod.GET)
 	public String index(){
 		System.out.print("2");
-		return "redirect:/authors";
+		return "redirect:/index";
 	}
 
 
-	
+	/*
 	@RequestMapping(value = "/authors", method = RequestMethod.POST)
 	public String processRegistration(Author author, BindingResult bindingResult, HttpServletRequest request)
 	{
@@ -63,6 +91,20 @@ public class AuthorResource {
 		authorService.saveAuthor(author);
 		
 		return "redirect:/authors";
+
+	}
+	*/
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String processRegistration(Author author, BindingResult bindingResult, HttpServletRequest request)
+	{
+		if(bindingResult.hasErrors()) {
+			System.out.println("has errors");
+			return "register";
+		}
+		authorService.saveAuthor(author);
+		
+		return "redirect:/register";
 
 	}
 	
